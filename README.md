@@ -22,6 +22,9 @@ A flexible and customizable wallet system for Laravel applications.
 
 ```bash
 composer require aniket/laravel-wallet-system
+
+---
+
 ## 👨‍💻 Usage Example
 
 ### In `User.php`:
@@ -34,6 +37,7 @@ class User extends Authenticatable {
 }
 
 ## Use Like
+
 $user = User::find(1);
 $user->credit(1000, 'Signup Bonus');
 $user->debit(250, 'Purchase');
