@@ -1,6 +1,6 @@
 <?php
 
-namespace Aniket\Wallet;
+namespace Aniket\LaravelWalletSystem;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +19,6 @@ class WalletServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/wallet.php', 'wallet');
 
-        $this->app->singleton(\Aniket\Wallet\Services\WalletManager::class);
+        $this->app->singleton(\Aniket\LaravelWalletSystem\Services\WalletManager::class);
     }
 }
