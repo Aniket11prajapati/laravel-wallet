@@ -37,6 +37,7 @@ use Aniket\LaravelWalletSystem\Traits\HasWallet;
 class User extends Authenticatable {
     use HasWallet;
 }
+```
 
 ## Use Like
 
