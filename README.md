@@ -22,11 +22,7 @@ A flexible and customizable wallet system for Laravel applications.
 
 ```bash
 composer require aniket/laravel-wallet-system
-Add this under a section like:
 
-md
-Copy
-Edit
 ## 👨‍💻 Usage Example
 
 ### In `User.php`:
