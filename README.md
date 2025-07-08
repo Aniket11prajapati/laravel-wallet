@@ -57,3 +57,10 @@ Debits money from the user's wallet if sufficient balance is available.
 $user = User::find(1);
 $user->debit(250, 'Purchase');
 ```
+### 💸 Refund Wallet
+Refunds money back into the wallet (acts like a credit, but marked with metadata).
+
+```php
+$user = User::find(1);
+$user->refund(100, 'Failed order refund');
+```
