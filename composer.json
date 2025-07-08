@@ -1,6 +1,6 @@
 {
     "name": "aniket/laravel-wallet-system",
-    "description": "\"Flexible Laravel wallet system\"",
+    "description": "Flexible Laravel wallet system",
     "type": "library",
     "require": {
         "php": "^8.0"
@@ -16,5 +16,6 @@
             "name": "Aniket Prajapati"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
