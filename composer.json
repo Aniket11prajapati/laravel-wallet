@@ -1,0 +1,20 @@
+{
+    "name": "aniket/laravel-wallet-system",
+    "description": "\"Flexible Laravel wallet system\"",
+    "type": "library",
+    "require": {
+        "php": "^8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Aniket\\LaravelWalletSystem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aniket Prajapati"
+        }
+    ],
+    "minimum-stability": "stable"
+}
