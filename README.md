@@ -38,10 +38,22 @@ class User extends Authenticatable {
     use HasWallet;
 }
 ```
+## 💳 Wallet Operations
 
-## Use Like
+---
 
+### ✅ Credit Wallet
+
+Credits money to the user's wallet.
+
+```php
 $user = User::find(1);
 $user->credit(1000, 'Signup Bonus');
+```
+### 🛒 Debit Wallet
+Debits money from the user's wallet if sufficient balance is available.
+
+```php
+$user = User::find(1);
 $user->debit(250, 'Purchase');
-$user->refund(100, 'Failed order refund');
+```
