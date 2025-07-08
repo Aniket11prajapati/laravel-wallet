@@ -22,12 +22,11 @@ A flexible and customizable wallet system for Laravel applications.
 
 ```bash
 composer require aniket/laravel-wallet-system
-
-## 👨‍💻 Usage Example
-
-### In `User.php`:
-
-```php
+👨‍💻 Usage Example
+In User.php:
+php
+Copy
+Edit
 use Aniket\LaravelWalletSystem\Traits\HasWallet;
 
 class User extends Authenticatable {
@@ -41,16 +40,34 @@ $user = User::find(1);
 $user->credit(1000, 'Signup Bonus');
 $user->debit(250, 'Purchase');
 $user->refund(100, 'Failed order refund');
-🔹 STEP 9: Versioning (for maintainers or contributors)
-Under a new section:
+🏷️ Versioning
+Once your package is ready for release, tag it:
 
-md
+bash
 Copy
 Edit
-## 🏷️ Versioning
-
-Once your package is ready for release:
-
-```bash
 git tag v1.0.0
 git push origin v1.0.0
+Then install via Composer using the version:
+
+bash
+Copy
+Edit
+composer require aniket/laravel-wallet-system:^1.0
+📄 License
+MIT © Aniket Prajapati
+
+yaml
+Copy
+Edit
+
+---
+
+✅ You can paste this directly into your `README.md`.
+
+Let me know if you want to:
+- Add GitHub Actions badge
+- Add Laravel compatibility table
+- Add screenshots or example DB schema
+
+You're almost ready for Packagist!
