@@ -5,6 +5,13 @@
     "require": {
         "php": "^8.0"
     },
+    "extra": {
+    "laravel": {
+        "providers": [
+            "Aniket\\LaravelWalletSystem\\WalletServiceProvider"
+        ]
+    }
+},
     "license": "MIT",
     "autoload": {
         "psr-4": {
