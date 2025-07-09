@@ -1,5 +1,5 @@
 <?php
-namespace Aniket\Wallet\Models;
+namespace Aniket\LaravelWalletSystem\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

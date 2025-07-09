@@ -1,8 +1,8 @@
 <?php
 
-namespace Aniket\Wallet\Traits;
+namespace Aniket\LaravelWalletSystem\Traits;
 
-use Aniket\Wallet\Services\WalletManager;
+use Aniket\LaravelWalletSystem\Services\WalletManager;
 
 trait HasWallet
 {
