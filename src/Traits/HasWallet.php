@@ -25,4 +25,8 @@ trait HasWallet
     {
         return $this->walletManager()->refund($this, $amount, $description, $meta);
     }
+     public function updateTransactionStatus(int $transactionId, string $status): bool
+    {
+        return $this->walletManager()->updateTransactionStatus($transactionId, $status);
+    }
 }

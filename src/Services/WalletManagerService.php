@@ -17,27 +17,24 @@ class WalletManager implements WalletInterface
     $defaultBalance = config('wallet.default_wallet_amount');
     $lock = Cache::lock("wallet:{$user->id}", config('wallet.lock_duration'));
 
-    // Check if wallet column exists
     if (!Schema::hasColumn($userTable, $walletColumn)) {
         throw new \Exception("Column '{$walletColumn}' does not exist in the '{$userTable}' table.");
     }
 
-    // Check if required tables exist
     if (!Schema::hasTable('transactions')) {
-        throw new \Exception("Table 'transactions' does not exist. Please run migrations.");
+        throw new \Exception("Table 'transactions' does not exist.");
     }
 
     if (!Schema::hasTable('transaction_histories')) {
-        throw new \Exception("Table 'transaction_histories' does not exist. Please run migrations.");
+        throw new \Exception("Table 'transaction_histories' does not exist.");
     }
 
     return $lock->block(config('wallet.lock_duration'), function () use ($user, $amount, $type, $description, $meta, $walletColumn, $defaultBalance) {
         DB::transaction(function () use ($user, $amount, $type, $description, $meta, $walletColumn, $defaultBalance) {
-            if (!in_array($type, ['credit', 'debit'])) {
+            if (!in_array($type, ['credit', 'debit', 'refund'])) {
                 throw new \Exception("Invalid wallet transaction type.");
             }
 
-            // Initialize balance if null
             if (is_null($user->{$walletColumn})) {
                 $user->{$walletColumn} = $defaultBalance;
             }
@@ -48,22 +45,23 @@ class WalletManager implements WalletInterface
                 throw new \Exception("Insufficient balance.");
             }
 
-            $user->{$walletColumn} = $type === 'credit'
-                ? $balance + $amount
-                : $balance - $amount;
+            if ($type === 'credit' || $type === 'refund') {
+                $user->{$walletColumn} += $amount;
+            } else {
+                $user->{$walletColumn} -= $amount;
+            }
 
             $user->save();
-
-            // Save to transactions
-            Transaction::create([
-                'user_id' => $user->id,
-                'amount' => $amount,
-                'type' => $type,
-                'description' => $description,
-                'meta' => $meta,
-            ]);
-
-            // Save to transaction history
+            if (in_array($type, ['credit', 'debit'])) {
+                Transaction::create([
+                    'user_id' => $user->id,
+                    'amount' => $amount,
+                    'type' => $type,
+                    'status' => 'success',
+                    'description' => $description,
+                    'meta' => $meta,
+                ]);
+            }
             TransactionHistory::create([
                 'user_id' => $user->id,
                 'amount' => $amount,
@@ -76,6 +74,7 @@ class WalletManager implements WalletInterface
         return true;
     });
 }
+
 
     public function credit(float $amount, string $description = '', array $meta = []): bool
     {
@@ -98,4 +97,19 @@ class WalletManager implements WalletInterface
         $walletColumn = config('wallet.wallet_balance_column');
         return $user->{$walletColumn} ?? 0.00;
     }
+
+    public function updateTransactionStatus(int $transactionId, string $status): bool
+{
+    $allowed = ['pending', 'processing', 'failed', 'success'];
+    if (!in_array($status, $allowed)) {
+        throw new \Exception("Invalid transaction status.");
+    }
+
+    $transaction = Transaction::findOrFail($transactionId);
+    $transaction->status = $status;
+    $transaction->save();
+
+    return true;
+}
+
 }

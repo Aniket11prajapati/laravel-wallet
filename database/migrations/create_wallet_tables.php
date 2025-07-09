@@ -8,13 +8,15 @@ return new class extends Migration {
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users'); // ✅ Use actual table name
+            $table->foreignId('user_id')->constrained('users');
             $table->decimal('amount', 15, 2);
             $table->enum('type', ['credit', 'debit']);
+            $table->enum('status', ['pending', 'processing', 'failed', 'success'])->default('pending');
             $table->string('description')->nullable();
             $table->json('meta')->nullable();
             $table->timestamps();
         });
+
 
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->id();
