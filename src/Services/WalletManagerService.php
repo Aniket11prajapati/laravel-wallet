@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Aniket\LaravelWalletSystem\Models\Transaction;
 use Aniket\LaravelWalletSystem\Models\TransactionHistory;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class WalletManager implements WalletInterface
 {
@@ -57,7 +59,7 @@ class WalletManager implements WalletInterface
                     'user_id' => $user->id,
                     'amount' => $amount,
                     'type' => $type,
-                    'status' => 'success',
+                    'status' => 'pending',
                     'description' => $description,
                     'meta' => $meta,
                 ]);
@@ -102,7 +104,7 @@ class WalletManager implements WalletInterface
 {
     $allowed = ['pending', 'processing', 'failed', 'success'];
     if (!in_array($status, $allowed)) {
-        throw new \Exception("Invalid transaction status.");
+        throw new \Exception("Invalid transaction status.");        
     }
 
     $transaction = Transaction::findOrFail($transactionId);
@@ -111,5 +113,86 @@ class WalletManager implements WalletInterface
 
     return true;
 }
+
+ public function getTransactions($user, bool $paginate = true, int $perPage = 15, ?string $type = null): Collection|LengthAwarePaginator
+    {
+        $query = Transaction::where('user_id', $user->id);
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        $query->latest();
+
+        return $paginate ? $query->paginate($perPage) : $query->get();
+    }
+
+
+    public function getTransactionsHistory($user, bool $paginate = true, int $perPage = 15, ?string $type = null): Collection|LengthAwarePaginator
+    {
+        $query = TransactionHistory::where('user_id', $user->id);
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        $query->latest();
+
+        return $paginate ? $query->paginate($perPage) : $query->get();
+    }
+
+    
+public function getAllTransactionsForAdmin(
+    bool $paginate = true,
+    int $perPage = 15,
+    ?string $type = null,
+    ?string $status = null,
+    ?int $userId = null
+): Collection|LengthAwarePaginator {
+    $query = Transaction::query();
+
+    if ($type) {
+        $query->where('type', $type);
+    }
+
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    if ($userId) {
+        $query->where('user_id', $userId); 
+    }
+
+    $query->latest();
+
+    return $paginate ? $query->paginate($perPage) : $query->get();
+}
+
+public function getAllTransactionHistoriesForAdmin(
+    bool $paginate = true,
+    int $perPage = 15,
+    ?string $type = null,
+    ?string $status = null,
+    ?int $userId = null
+): Collection|LengthAwarePaginator {
+    $query = TransactionHistory::query();
+
+    if ($type) {
+        $query->where('type', $type);
+    }
+
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    if ($userId) {
+        $query->where('user_id', $userId); 
+    }
+
+    $query->latest();
+
+    return $paginate ? $query->paginate($perPage) : $query->get();
+}
+
 
 }
