@@ -23,7 +23,5 @@
         {
             "name": "Aniket Prajapati"
         }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    ]
 }
