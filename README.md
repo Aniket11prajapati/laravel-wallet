@@ -29,6 +29,12 @@ composer require aniket/laravel-wallet-system
 
 ## 👨‍💻 Usage Example
 
+For migrating the tables.
+
+```bash
+php artisan migrate
+```
+
 ### In `User.php`:
 
 ```php
