@@ -23,8 +23,34 @@ A flexible and customizable wallet system for Laravel applications.
 ```bash
 composer require aniket/laravel-wallet-system
 ```
+---
 
 
+# ⚙️ Wallet Configuration
+
+You can edit the configuration in `config/wallet.php`:
+
+```php
+return [
+    'users_table' => 'users',                    // Table name for users
+    'wallet_balance_column' => 'wallet_balance',// Column for storing wallet balance
+    'lock_duration' => 10,                       // Cache lock duration in seconds
+    'default_balance' => 0.00,                   // Default balance for new users
+];
+```
+## ⚙️ Configuration Options
+
+- **users_table**  
+  Specify your users table name.
+
+- **wallet_balance_column**  
+  Column in the users table for wallet balance.
+
+- **lock_duration**  
+  Time in seconds to lock a wallet during updates (prevents race conditions).
+
+- **default_balance**  
+  Initial balance for new users.
 ---
 
 ## 👨‍💻 Usage Example
