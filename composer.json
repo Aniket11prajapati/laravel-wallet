@@ -1,28 +1,38 @@
 {
     "name": "aniket/laravel-wallet-system",
     "description": "A Laravel Wallet System for managing user balances, deposits, withdrawals, and transactions in Laravel applications.",
+<<<<<<< HEAD
     "type": "library",
     "require": {
         "php": "^8.0",
         "phpoffice/phpspreadsheet": "^4.5"
   },
   
+=======
+    "version": "1.0.0",
+    "type": "library",
+    "require": {
+        "php": "^8.0"
+    },
+>>>>>>> 5c53be71059a03db93f47a8de38fd26066aed120
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "Aniket\\LaravelWalletSystem\\": "src/"
         }
     },
-      "extra": {
-    "laravel": {
-        "providers": [
-            "Aniket\\LaravelWalletSystem\\WalletServiceProvider"
-        ]
-    }
-},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aniket\\LaravelWalletSystem\\WalletServiceProvider"
+            ]
+        }
+    },
     "authors": [
         {
-            "name": "Aniket Prajapati"
+            "name": "Aniket Prajapati",
+            "email": "your-email@example.com",
+            "homepage": "https://github.com/aniket/laravel-wallet-system"
         }
     ],
     "keywords": [
@@ -38,5 +48,9 @@
         "money",
         "finance"
     ],
+<<<<<<< HEAD
     "homepage": "https://github.com/Aniket11prajapati/laravel-wallet"
+=======
+    "homepage": "https://github.com/aniket/laravel-wallet-system"
+>>>>>>> 5c53be71059a03db93f47a8de38fd26066aed120
 }
